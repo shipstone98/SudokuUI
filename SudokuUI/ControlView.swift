@@ -8,11 +8,11 @@
 import SwiftUI
 
 internal struct ControlView : View {
-    @Binding
-    private var control: Control
-    
     private let colorActive: Color
     private let colorInactive: Color
+    
+    @State
+    private var viewModel: ContentViewModel
     
     internal var body: some View {
         VStack {
@@ -23,21 +23,21 @@ internal struct ControlView : View {
                     
                     ControlButton(
                         text,
-                        isActive: self.control.number == number,
+                        isActive: self.viewModel.control.number == number,
                         self.colorActive,
                         self.colorInactive
                     ) {
-                        self.control.number = number
+                        self.viewModel.control.number = number
                     }
                 }
                 
                 ControlButton(
                     "Clear",
-                    isActive: self.control.number == 0,
+                    isActive: self.viewModel.control.number == 0,
                     self.colorActive,
                     self.colorInactive
                 ) {
-                    self.control.number = 0
+                    self.viewModel.control.number = 0
                 }
             }
             
@@ -48,21 +48,21 @@ internal struct ControlView : View {
                     
                     ControlButton(
                         text,
-                        isActive: self.control.number == number,
+                        isActive: self.viewModel.control.number == number,
                         self.colorActive,
                         self.colorInactive
                     ) {
-                        self.control.number = number
+                        self.viewModel.control.number = number
                     }
                 }
                 
                 ControlButton(
                     "Notes",
-                    isActive: self.control.isNotesSelected,
+                    isActive: self.viewModel.control.isNotesSelected,
                     self.colorActive,
                     self.colorInactive
                 ) {
-                    self.control.isNotesSelected.toggle()
+                    self.viewModel.control.isNotesSelected.toggle()
                 }
             }
             
@@ -73,11 +73,11 @@ internal struct ControlView : View {
                     
                     ControlButton(
                         text,
-                        isActive: self.control.number == number,
+                        isActive: self.viewModel.control.number == number,
                         self.colorActive,
                         self.colorInactive
                     ) {
-                        self.control.number = number
+                        self.viewModel.control.number = number
                     }
                 }
                 
@@ -86,18 +86,20 @@ internal struct ControlView : View {
                     isActive: false,
                     self.colorActive,
                     self.colorInactive
-                )
+                ) {
+                    self.viewModel.undo()
+                }
             }
         }
     }
     
-    internal init(_ control: Binding<Control>) {
-        self._control = control
+    internal init(_ viewModel: State<ContentViewModel>) {
         self.colorActive = .blue
         self.colorInactive = .gray
+        self._viewModel = viewModel
     }
 }
 
 #Preview {
-    ControlView(.constant(.init()))
+    ControlView(.init(initialValue: .init()))
 }

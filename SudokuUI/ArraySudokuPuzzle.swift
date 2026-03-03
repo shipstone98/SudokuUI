@@ -10,6 +10,7 @@ import Sudoku
 internal struct ArraySudokuPuzzle : SudokuPuzzle {
     private var cells: [Cell]
     internal private(set) var isComplete: Bool
+    private var moves: [Move]
     
     internal subscript(row: Int, column: Int) -> Int {
         get {
@@ -26,7 +27,10 @@ internal struct ArraySudokuPuzzle : SudokuPuzzle {
                 return
             }
             
+            let oldValue = cell.value
             cell.value = newValue
+            let move = Move(at: index, oldValue)
+            self.moves.append(move)
             self.cells[index] = cell
             
             for cell in self.cells {
@@ -55,6 +59,7 @@ internal struct ArraySudokuPuzzle : SudokuPuzzle {
         
         self.cells = cells
         self.isComplete = false
+        self.moves = []
     }
     
     internal func getNotes(_ row: Int, _ column: Int) -> Set<Int> {
@@ -87,7 +92,29 @@ internal struct ArraySudokuPuzzle : SudokuPuzzle {
             cell.notes.remove(value)
         }
         
+        let move = Move(at: index, value, isNote: true)
+        self.moves.append(move)
         self.cells[index] = cell
+    }
+    
+    internal mutating func undo() {
+        guard !self.isComplete, let move = self.moves.popLast() else {
+            return
+        }
+        
+        var cell = self.cells[move.index]
+        
+        if move.isNote {
+            let (isInserted, _) = cell.notes.insert(move.value)
+            
+            if !isInserted {
+                cell.notes.remove(move.value)
+            }
+        } else {
+            cell.value = move.value
+        }
+        
+        self.cells[move.index] = cell
     }
     
     private struct Cell {
@@ -98,8 +125,20 @@ internal struct ArraySudokuPuzzle : SudokuPuzzle {
         
         fileprivate init(_ value: Int, _ solution: Int, isReadOnly: Bool) {
             self.isReadOnly = isReadOnly
-            self.notes = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+            self.notes = []
             self.solution = solution
+            self.value = value
+        }
+    }
+    
+    private struct Move {
+        fileprivate let index: Int
+        fileprivate let isNote: Bool
+        fileprivate let value: Int
+        
+        internal init(at index: Int, _ value: Int, isNote: Bool = false) {
+            self.index = index
+            self.isNote = isNote
             self.value = value
         }
     }

@@ -106,4 +106,13 @@ internal final class ContentViewModel {
         self._selection = nil
         self.sudoku = ArraySudokuPuzzle()
     }
+    
+    internal func undo() {
+        guard !self.isComplete, var sudoku = self.sudoku else {
+            return
+        }
+        
+        sudoku.undo()
+        self.sudoku = sudoku
+    }
 }
