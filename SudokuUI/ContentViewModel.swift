@@ -102,9 +102,10 @@ internal final class ContentViewModel {
     internal var sudoku: ArraySudokuPuzzle?
     
     internal init() {
+        let seed = ArraySudokuPuzzleSeed()
         self._control = .init()
         self._selection = nil
-        self.sudoku = ArraySudokuPuzzle()
+        self.sudoku = ArraySudokuPuzzle(seed)
     }
     
     internal func undo() {
