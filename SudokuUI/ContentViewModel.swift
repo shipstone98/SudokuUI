@@ -22,28 +22,32 @@ internal final class ContentViewModel {
             }
             
             if let newValueNumber = newValue.number {
-                if let (row, column) = self._selection {
-                    guard var sudoku = self.sudoku,
-                          !sudoku.isReadOnly(row, column) else {
-                        return
-                    }
-                    
-                    if self._control.number == 0 {
-                        sudoku.removeAllNotes(row, column)
-                        sudoku[row, column] = 0
-                    } else if self._control.isNotesSelected {
-                        sudoku.toggleNote(row, column, newValueNumber)
-                    } else {
-                        let value = sudoku[row, column]
-                        sudoku[row, column] = value == newValue.number ? 0 : newValueNumber
-                    }
-                    
-                    self.sudoku = sudoku
+                if newValue.isNotesSelected != self._control.isNotesSelected {
+                    self._control.isNotesSelected.toggle()
                 } else {
-                    if self._control.number == newValue.number {
-                        self._control.number = nil
+                    if let (row, column) = self._selection {
+                        guard var sudoku = self.sudoku,
+                              !sudoku.isReadOnly(row, column) else {
+                            return
+                        }
+                        
+                        if self._control.number == 0 {
+                            sudoku.removeAllNotes(row, column)
+                            sudoku[row, column] = 0
+                        } else if self._control.isNotesSelected {
+                            sudoku.toggleNote(row, column, newValueNumber)
+                        } else {
+                            let value = sudoku[row, column]
+                            sudoku[row, column] = value == newValue.number ? 0 : newValueNumber
+                        }
+                        
+                        self.sudoku = sudoku
                     } else {
-                        self._control.number = newValue.number
+                        if self._control.number == newValue.number {
+                            self._control.number = nil
+                        } else {
+                            self._control.number = newValue.number
+                        }
                     }
                 }
             } else {
@@ -113,7 +117,7 @@ internal final class ContentViewModel {
             return
         }
         
-        sudoku.undo()
+        self._selection = sudoku.undo()
         self.sudoku = sudoku
     }
 }
