@@ -23,7 +23,9 @@ internal final class ContentViewModel {
             
             if let newValueNumber = newValue.number {
                 if newValue.isNotesSelected != self._control.isNotesSelected {
-                    self._control.isNotesSelected.toggle()
+                    if newValueNumber > 0 {
+                        self._control.isNotesSelected.toggle()
+                    }
                 } else {
                     if let (row, column) = self._selection {
                         guard var sudoku = self.sudoku,
@@ -38,16 +40,24 @@ internal final class ContentViewModel {
                             sudoku.toggleNote(row, column, newValueNumber)
                         } else {
                             let value = sudoku[row, column]
-                            sudoku[row, column] = value == newValue.number ? 0 : newValueNumber
+                            
+                            if value == newValueNumber {
+                                sudoku[row, column] = 0
+                            } else {
+                                sudoku.removeNotes(row, column, newValueNumber)
+                                sudoku[row, column] = newValueNumber
+                            }
                         }
                         
                         self.sudoku = sudoku
+                    } else if self._control.number == newValueNumber {
+                        self._control.number = nil
                     } else {
-                        if self._control.number == newValue.number {
-                            self._control.number = nil
-                        } else {
-                            self._control.number = newValue.number
+                        if newValueNumber == 0 {
+                            self._control.isNotesSelected = false
                         }
+                        
+                        self._control.number = newValueNumber
                     }
                 }
             } else {
@@ -83,7 +93,13 @@ internal final class ContentViewModel {
                         sudoku.toggleNote(row, column, controlNumber)
                     } else {
                         let value = sudoku[row, column]
-                        sudoku[row, column] = value == controlNumber ? 0 : controlNumber
+                        
+                        if value == controlNumber {
+                            sudoku[row, column] = 0
+                        } else {
+                            sudoku.removeNotes(row, column, controlNumber)
+                            sudoku[row, column] = controlNumber
+                        }
                     }
                     
                     self._selection = nil
@@ -117,6 +133,7 @@ internal final class ContentViewModel {
             return
         }
         
+        self._control = .init()
         self._selection = sudoku.undo()
         self.sudoku = sudoku
     }
