@@ -11,36 +11,75 @@ internal struct ControlView : View {
     internal var body: some View {
         VStack {
             HStack {
-                ControlButton("1", color: self.colorInactive)
-                ControlButton("2", color: self.colorInactive)
-                ControlButton("3", color: self.colorInactive)
-                ControlButton("Clear", color: self.colorInactive)
+                ControlButton("1", isActive: self.viewModel.state.value == 1) {
+                    self.viewModel.setControlValue(1)
+                }
+                
+                ControlButton("2", isActive: self.viewModel.state.value == 2) {
+                    self.viewModel.setControlValue(2)
+                }
+                
+                ControlButton("3", isActive: self.viewModel.state.value == 3) {
+                    self.viewModel.setControlValue(3)
+                }
+                
+                ControlButton(
+                    "Clear",
+                    isActive: self.viewModel.state.isClearSelected
+                ) {
+                    self.viewModel.setControlClear()
+                }
             }
             
             HStack {
-                ControlButton("4", color: self.colorInactive)
-                ControlButton("5", color: self.colorInactive)
-                ControlButton("6", color: self.colorInactive)
-                ControlButton("Notes", color: self.colorInactive)
+                ControlButton("4", isActive: self.viewModel.state.value == 4) {
+                    self.viewModel.setControlValue(4)
+                }
+                
+                ControlButton("5", isActive: self.viewModel.state.value == 5) {
+                    self.viewModel.setControlValue(5)
+                }
+                
+                ControlButton("6", isActive: self.viewModel.state.value == 6) {
+                    self.viewModel.setControlValue(6)
+                }
+                
+                ControlButton(
+                    "Notes",
+                    isActive: self.viewModel.state.isNotesSelected
+                ) {
+                    self.viewModel.setControlNotes()
+                }
             }
             
             HStack {
-                ControlButton("7", color: self.colorInactive)
-                ControlButton("8", color: self.colorInactive)
-                ControlButton("9", color: self.colorInactive)
-                ControlButton("Undo", color: self.colorInactive)
+                ControlButton("7", isActive: self.viewModel.state.value == 7) {
+                    self.viewModel.setControlValue(7)
+                }
+                
+                ControlButton("8", isActive: self.viewModel.state.value == 8) {
+                    self.viewModel.setControlValue(8)
+                }
+                
+                ControlButton("9", isActive: self.viewModel.state.value == 9) {
+                    self.viewModel.setControlValue(9)
+                }
+                
+                ControlButton("Undo") {
+                    self.viewModel.undo()
+                }
             }
         }
         .aspectRatio(1, contentMode: .fit)
     }
     
-    private let colorInactive: Color
+    private var viewModel: ContentViewModel
     
-    internal init() {
-        self.colorInactive = .gray
+    internal init(_ viewModel: ContentViewModel) {
+        self.viewModel = viewModel
     }
 }
 
 #Preview {
-    ControlView()
+    ControlView(.init())
 }

@@ -14,21 +14,21 @@ internal struct ControlButton : View {
         Button(self.title, action: self.action)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aspectRatio(1, contentMode: .fit)
-            .background(self.color)
+            .background(self.isActive ? .blue : .gray)
             .foregroundColor(.white)
             .cornerRadius(8)
     }
     
-    private let color: Color
+    private let isActive: Bool
     private let title: String
     
     internal init(
         _ title: String,
-        color: Color,
+        isActive: Bool = false,
         action: @escaping () -> Void = { }
     ) {
         self.action = action
-        self.color = color
+        self.isActive = isActive
         self.title = title
     }
 }

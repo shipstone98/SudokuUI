@@ -16,12 +16,11 @@ internal final class ContentViewModel {
         get {
             self._selection
         } set {
-            if let oldValue = self._selection {
-                guard let newValue,
-                      !(
-                        oldValue.row == newValue.row
-                        && oldValue.column == newValue.column
-                      ) else {
+            if let oldValue = self._selection, let newValue {
+                guard !(
+                    oldValue.row == newValue.row
+                    && oldValue.column == newValue.column
+                ) else {
                     self._selection = nil
                     return
                 }
@@ -31,10 +30,32 @@ internal final class ContentViewModel {
         }
     }
     
-    internal let sudoku: ArraySudokuPuzzle?
+    internal private(set) var state: ControlState
+    internal private(set) var sudoku: ArraySudokuPuzzle?
     
     internal init() {
         self._selection = nil
+        self.state = .init()
         self.sudoku = nil
+    }
+    
+    internal func setControlClear() {
+        self.state.isClearSelected.toggle()
+    }
+    
+    internal func setControlNotes() {
+        self.state.isNotesSelected.toggle()
+    }
+    
+    internal func setControlValue(_ value: Int) {
+        if self.state.value == value {
+            self.state.value = nil
+        } else {
+            self.state.value = value
+        }
+    }
+    
+    internal func undo() {
+        self.sudoku?.undo()
     }
 }
