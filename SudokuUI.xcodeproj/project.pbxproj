@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		83E6A8E12F7C1EBF00F0806E /* SwiftUIUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 83E6A8E02F7C1EBF00F0806E /* SwiftUIUtilities */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		83E6A8C32F7C1E8700F0806E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E6A8E12F7C1EBF00F0806E /* SwiftUIUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = SudokuUI;
 			packageProductDependencies = (
+				83E6A8E02F7C1EBF00F0806E /* SwiftUIUtilities */,
 			);
 			productName = SudokuUI;
 			productReference = 83E6A8B52F7C1E8500F0806E /* SudokuUI.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 83E6A8AC2F7C1E8500F0806E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				83E6A8DF2F7C1EBF00F0806E /* XCLocalSwiftPackageReference "../../../packages/swift/swiftuiutilities" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 83E6A8B62F7C1E8500F0806E /* Products */;
 			projectDirPath = "";
@@ -400,11 +409,14 @@
 				DEVELOPMENT_TEAM = TFZ5YCJ48F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Sudoku;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.3.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -432,11 +444,14 @@
 				DEVELOPMENT_TEAM = TFZ5YCJ48F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Sudoku;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.3.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -578,6 +593,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		83E6A8DF2F7C1EBF00F0806E /* XCLocalSwiftPackageReference "../../../packages/swift/swiftuiutilities" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../../packages/swift/swiftuiutilities;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		83E6A8E02F7C1EBF00F0806E /* SwiftUIUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftUIUtilities;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83E6A8AD2F7C1E8500F0806E /* Project object */;
 }

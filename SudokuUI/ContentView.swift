@@ -6,16 +6,21 @@
 //
 
 import SwiftUI
+import SwiftUIUtilities
 
 internal struct ContentView : View {
     internal var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            SudokuView(self.viewModel.sudoku, self.$viewModel.selection)
         }
         .padding()
+    }
+    
+    @State
+    private var viewModel: ContentViewModel
+    
+    internal init() {
+        self.viewModel = .init()
     }
 }
 
