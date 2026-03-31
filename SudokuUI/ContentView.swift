@@ -12,6 +12,8 @@ internal struct ContentView : View {
     internal var body: some View {
         VStack {
             SudokuView(self.viewModel.sudoku, self.$viewModel.selection)
+            Spacer()
+            ControlView()
         }
         .padding()
     }
