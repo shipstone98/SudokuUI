@@ -73,7 +73,7 @@ internal final class ContentViewModel {
         
         self._selection = nil
         self.state = .init()
-        self.sudoku = .init(seed)
+        self.sudoku = .init(seed, areNotesRemoving: true)
     }
     
     internal func setControlClear() {
