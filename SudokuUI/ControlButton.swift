@@ -11,12 +11,14 @@ internal struct ControlButton : View {
     private let action: () -> Void
     
     internal var body: some View {
-        Button(self.title, action: self.action)
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(self.isActive ? .blue : .gray)
-            .foregroundColor(.white)
-            .cornerRadius(8)
+        Button(action: self.action) {
+            Text(self.title)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(self.isActive ? .blue : .gray)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+        }
     }
     
     private let isActive: Bool
