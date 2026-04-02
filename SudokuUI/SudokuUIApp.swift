@@ -11,7 +11,13 @@ import SwiftUI
 internal struct SudokuUIApp : App {
     internal var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(self.repository)
         }
+    }
+    
+    private let repository: MemoryRepository
+    
+    internal init() {
+        self.repository = .init()
     }
 }

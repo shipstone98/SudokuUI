@@ -39,6 +39,19 @@ internal final class ContentViewModel {
         self.sudoku = nil
     }
     
+    internal func load<R>(
+        _ repository: R,
+        for difficulty: SudokuPuzzleDifficulty
+    ) async throws where R : Repository {
+        guard let seed = try await repository.retrieve(for: difficulty) else {
+            return
+        }
+        
+        self._selection = nil
+        self.state = .init()
+        self.sudoku = .init(seed)
+    }
+    
     internal func setControlClear() {
         self.state.isClearSelected.toggle()
     }

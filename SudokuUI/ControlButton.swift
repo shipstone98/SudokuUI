@@ -12,8 +12,8 @@ internal struct ControlButton : View {
     
     internal var body: some View {
         Button(self.title, action: self.action)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .aspectRatio(1, contentMode: .fit)
+            .frame(maxWidth: .infinity)
+            .padding()
             .background(self.isActive ? .blue : .gray)
             .foregroundColor(.white)
             .cornerRadius(8)
